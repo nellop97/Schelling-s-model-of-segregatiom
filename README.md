@@ -287,12 +287,14 @@ Matrice250*250, agenti x=21950 y=21800 sod=70
 
 Per i test di **scalabilità debole** sono stati fatti due test,
 
--il primo assegnato ad ogni per ogni processore 50 righe
+-il primo assegnango ad per ogni processore 50 righe
 
 ![Weak Scalability matrice 1p=50 righe](https://user-images.githubusercontent.com/43914023/124522422-7da9bf00-ddf3-11eb-9f36-fb9ff5f7f467.png)
 
--il secondo assegnato ad ogni per ogni processore 100 righe
+-il secondo assegnango ad per ogni processore 100 righe
 
 ![Weak Scalability matrice 1p=100 righe](https://user-images.githubusercontent.com/43914023/124522423-7e425580-ddf3-11eb-9d70-48621a0d025d.png)
 
-
+# Conclusione
+In conclusione per i test eseguiti si può notare che la parallelizzazione ha i suoi pro e contro questo in base al tipo di problema e la mole di dati passati.
+Per quello che riguarda il mio caso di studi, con  la quantità di dati passati e l'algortmo implementato la parallelizzazione non presenta una soluzione ottimale da un punto di vista prestazionale
