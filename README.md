@@ -296,5 +296,5 @@ Per i test di **scalabilità debole** sono stati fatti due test,
 ![Weak Scalability matrice 1p=100 righe](https://user-images.githubusercontent.com/43914023/124522423-7e425580-ddf3-11eb-9d70-48621a0d025d.png)
 
 # Conclusione
-In conclusione per i test eseguiti si può notare che la parallelizzazione ha i suoi pro e contro questo in base al tipo di problema e la mole di dati passati.
+In conclusione per i test eseguiti si può notare che la parallelizzazione ha i suoi vantaggi e svantaggi questo in base al tipo di problema e la mole di dati passati.
 Per quello che riguarda il mio caso di studi, con  la quantità di dati passati e l'algortmo implementato la parallelizzazione non presenta una soluzione ottimale da un punto di vista prestazionale
