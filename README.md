@@ -267,6 +267,13 @@ Dopo di che ogni agente libererà le celle relative agli agenti che "se ne sono 
 
 Il programma ciclerà fin quando tutti gli agenti non sono soddisfatti.
 # Esecuzione e parametri
+Per eseguire il programma occore prima creare l'eseguibile eseguendo il seguente comando 
+
+**mpicc Schelling-s-model-of-segregatiom.c -o Schelling-s-model-of-segregatiom**
+
+Per poi lanciarlo con il seguente comando e scrivere in input i dati richiesti dal programma
+**mpirun -np 2 ./Schelling-s-model-of-segregatiom**
+
 Per i test di **scalabilità forte** sono stati scelti i seguenti input:
 Matrice 40*40, agenti x=580 y=540 sod=60
 ![Strong Scalability matrice 40_40](https://user-images.githubusercontent.com/43914023/124522306-1724a100-ddf3-11eb-9c36-97a15f9ea63a.png)
