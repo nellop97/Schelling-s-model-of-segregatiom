@@ -13,7 +13,7 @@ Per arrivare alla soluzione proposta del problema sono stati affrontati i seguen
 
 ## 1. Validazione e creazione della matrice
 
-Il primo problema affrontato è stato quello di validare i dati inseriti dall'utente,come ad esempio la dimesione della matrice. 
+Il primo problema affrontato è stato quello di validare inseriti dall'utente, come ad esempio la dimensione della matrice. 
 Da questo punto di vista il primo controllo effettuato si basa sulla divisione della matrice per il numero di processori in modo tale che da evitare che qualche processore non avesse righe a disposizione.
 Il secondo controllo effettuato invece è stato quello relativo agli agenti e alla quantità di spazio libero da lasciare nella matrice, in modo da eseguire con corretta gli spostamenti tra sottomatrici.
 All'inizio la quantità di celle libere era calcolata come segue
@@ -59,8 +59,8 @@ Per utilizzarla è stato neccesario **committarla**, come si può vedere nel seg
     MPI_Type_commit(&info_mat_type);
 ```
 
-questa operazione è stata effettuata una sola volta all'interno del programma essendo che la dimensione di quest'ultima non cambiera per tutto il corso dell'esecuzione.
-Infine per assegnare e comunicare i dati ai singoli processori, da parte del **Master**, è stato utilizzato un vettore di tipo **info_mat_type** che conterrà in ogni cella i dati relativi ad ogni singolo processore,
+questa operazione è stata effettuata una sola volta all'interno del programma essendo che la dimensione di quest'ultima non cambierà per tutto il corso dell'esecuzione.
+Infine, per assegnare e comunicare i dati ai singoli processori, da parte del **Master**, è stato utilizzato un vettore di tipo **info_mat_type** che conterrà in ogni cella i dati relativi ad ogni singolo processore,
 
 ```
 
@@ -78,7 +78,7 @@ Alla fine di queste operazioni ogni processore sarà in grado di generarsi la pr
 
 ## 2 Scambio delle celle per il calcolo degli insoddisfatti
 
-Lo scopo dell'algoritmo è quello di controllare se ogni cella è soddisfatta. Analizzando le casistiche possibili ci si rende conto che in alcuni casi siamo costretti a chiedere ai nostri vicini (cioè myrank-1 e/o myrank+1) di dirci chi sono. Per fare queste richieste sono state usate delle **MPI_Send** e **MPI_Recv** non bloccanti
+Lo scopo dell'algoritmo è quello di controllare se ogni cella è soddisfatta. Analizzando le casistiche possibili ci si rende conto che in alcuni casi siamo costretti a chiedere ai nostri vicini (cioè myrank-1 e/o myrank+1) di dirci chi sono. Per fare queste richieste sono state usate delle **MPI_Send** e **MPI_Recv** non bloccati
 
 ```
 
@@ -102,7 +102,7 @@ Lo scopo dell'algoritmo è quello di controllare se ogni cella è soddisfatta. A
 
 ```
 
-perchè nel caso in cui non riceviamo queste informazioni non siamo in grado di proseguire. Altra cosa da tenere in considerazione è la necessità di non farci mandare una singola cella per volta non solo per questioni di tempistiche ma anche di complessità gestionale, e così per ovviare a questo problema abbiamo dichiarato un array continuo che ha permesso di inviare una riga intera
+perché nel caso in cui non riceviamo queste informazioni non siamo in grado di proseguire. Altra cosa da tenere in considerazione è la necessità di non farci mandare una singola cella per volta non solo per questioni di tempistiche ma anche di complessità gestionale, e così per ovviare a questo problema abbiamo dichiarato un array continuo che ha permesso di inviare una riga intera
 
 ```
 
@@ -117,7 +117,7 @@ perchè nel caso in cui non riceviamo queste informazioni non siamo in grado di 
 ## 3 Calcolo degli insoddisfatti
 
 Arrivati a questo punto si hanno a disposizione tutti i dati che occorrono per il calcolo degli insoddisfatti.
-La prima problematica affrontata è stata come memorizzare la posizione delle celle indodisfatte; per fare questo è stata creata una **struttura** formata dalle coordinate x ed y
+La prima problematica affrontata è stata come memorizzare la posizione delle celle insoddisfatte; per fare questo è stata creata una **struttura** formata dalle coordinate x e y
 
 ```
 typedef struct
@@ -143,7 +143,7 @@ Tutta la logica del calcolo è stata demandata alla funzione
 
 ```
 
-la quale tiene conto della posizione della celle che stiamo andando ad analizzare in modo tale da controllare i giusti vicini e dare le giuste percenutali di soddisfazioni, infatti i casi trovati sono 8
+la quale tiene conto della posizione delle celle che stiamo andando ad analizzare in modo tale da controllare i giusti vicini e dare le giuste percentuali di soddisfazioni, infatti i casi trovati sono 8
 
 ```
 else if (i == 0 && j == 0) // angolo in alto a sinistra
@@ -172,14 +172,14 @@ if (myrank == 0)
 ```
 
 questo controllo si riferisce all'angolo in alto a sinistra del master e di conseguenza le celle da controllare adiacenti sono soltanto tre. Il controllo per verificare che il mio vicino mi soddisfi si basa sul verificare che questo sia diverso dal mio negato. Per implementare tutto ciò gli agenti x e y sono stati rappresentati dai valori 1 e 0 e quindi se la condizione spiegata precedentemente risulta essere vera significa che la mia cella adiacente mi possa soddisfare.
-Alla fine, dopo aver controllato tutti i vicini vado a vedere se la soddisfazione raggiunta basti affinchè quell'agente sia soddisfatto altrimenti lo aggiungo all'array degli insoddisfatti
+Alla fine, dopo aver controllato tutti i vicini vado a vedere se la soddisfazione raggiunta basti affinché quell'agente sia soddisfatto altrimenti lo aggiungo all'array degli insoddisfatti
 
 ```
 if (support_sod < info_generali.sod)
     aggiungi_insodisfatto(mymat[i][j], array_ins_x, array_ins_y, qnt_ins_x, qnt_ins_y, i, j);
 ```
 
-questa funzione non fa altro che controllare se l'agente sia 1 o 0 e assegnare la posizone al relativo array
+questa funzione non fa altro che controllare se l'agente sia 1 o 0 e assegnare la posizione al relativo array
 
 ```
 if (agente == 1)
@@ -198,7 +198,7 @@ if (agente == 1)
 
 ## 4. Scambio e riallocazione degli insoddisfatti
 
-Una volta aver controllato tutte le celle, la fase successiva e finale è stata quella di effettuare lo scambio.Innanzitutto questa fase è stata gestita dal master, il quale riceve dagli slave il numero di insoddisfati e li salva all'interno di un array
+Una volta aver controllato tutte le celle, la fase successiva e finale è stata quella di effettuare lo scambio. Innanzitutto, questa fase è stata gestita dal master, il quale riceve dagli slave il numero di insoddisfatti e li salva all'interno di un array
 
 ```
 MPI_Gather(&qnt_ins_x, 1, MPI_INT, global_soddisfazione_x, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -219,6 +219,7 @@ che ha permesso anche di tenere traccia di quante celle libere un processore ave
 Grazie ai precedenti valori il master è in grado di capire se c'è ancora qualche insoddisfatto e in tal caso far effettuare un altro ciclo altrimenti fa terminare il programma.
 Nel caso in cui si abbiano ancora degli insoddisfatti la fase successiva è quella di effettuare lo scambio tra processori.
 Lo scambio è gestito da una funzione che lavora prima per l'agente 1 e poi con l'agente 0.
+
 
 ```
 int qnt_ins = risposta->qnt_ins;
@@ -262,12 +263,12 @@ int qnt_ins = risposta->qnt_ins;
             info_generali->my_age_y += 1;
     }
 ```
-Il funzionamento di questa funzione è molto semplice, lo scambio è gestito dal master il quale randomicamente seglie il processore ricevente degli insoddisfatti di qualcun altro, il ricevente prenderà in input il numero massimo di agenti, quelli restanti insoddisfatti dovranno o aspettare il ciclo successivo per cambiare sottomatrice oppure dopo questa fase di scambio potranno essere automaticamente soddisfatti.
+Il funzionamento di questa funzione è molto semplice, lo scambio è gestito dal master il quale randomicamente sceglie il processore ricevente degli insoddisfatti di qualcun altro, il ricevente prenderà in input il numero massimo di agenti, quelli restanti insoddisfatti dovranno o aspettare il ciclo successivo per cambiare sottomatrice oppure dopo questa fase di scambio potranno essere automaticamente soddisfatti.
 Dopo di che ogni agente libererà le celle relative agli agenti che "se ne sono andati" e assegnerà le celle ai nuovi agenti.
 
 Il programma ciclerà fin quando tutti gli agenti non sono soddisfatti.
 # Esecuzione e parametri
-Per eseguire il programma occore prima creare l'eseguibile eseguendo il seguente comando 
+Per eseguire il programma occorre prima creare l'eseguibile eseguendo il seguente comando
 
 **mpicc Schelling-s-model-of-segregatiom.c -o Schelling-s-model-of-segregatiom**
 
@@ -287,14 +288,15 @@ Matrice250*250, agenti x=21950 y=21800 sod=70
 
 Per i test di **scalabilità debole** sono stati fatti due test,
 
--il primo assegnango per ogni processore 50 righe
+-il primo assegnando per ogni processore 50 righe
 
 ![Weak Scalability matrice 1p=50 righe](https://user-images.githubusercontent.com/43914023/124522422-7da9bf00-ddf3-11eb-9f36-fb9ff5f7f467.png)
 
--il secondo assegnango per ogni processore 100 righe
+-il secondo assegnando per ogni processore 100 righe
 
 ![Weak Scalability matrice 1p=100 righe](https://user-images.githubusercontent.com/43914023/124522423-7e425580-ddf3-11eb-9d70-48621a0d025d.png)
 
 # Conclusione
-In conclusione per i test eseguiti si può notare che la parallelizzazione ha i suoi vantaggi e svantaggi questo in base al tipo di problema e alla mole di dati passati.
-Per quel che riguarda il mio caso di studi, con la quantità di dati passati e l'algoritmo implementato la parallelizzazione non presenta una soluzione ottimale da un punto di vista prestazionale
+In conclusione, per i test eseguiti si può notare che la parallelizzazione ha i suoi pro e contro questo in base al tipo di problema e la mole di dati passati.
+Per quello che riguarda il mio caso di studi, con la quantità di dati passati e l'algoritmo implementato la parallelizzazione non presenta una soluzione ottimale da un punto di vista prestazionale
+
