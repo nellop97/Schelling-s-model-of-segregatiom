@@ -299,5 +299,5 @@ Per i test di **scalabilità debole** sono stati fatti due test,
 
 # Conclusione
 In conclusione, per i test eseguiti si può notare che la parallelizzazione ha i suoi pro e contro questo in base al tipo di problema e la mole di dati passati.
-Per quello che riguarda il mio caso di studi, con la quantità di dati passati e l'algoritmo implementato la parallelizzazione non presenta una soluzione ottimale da un punto di vista prestazionale
+Per quello che riguarda il mio caso di studi, con la quantità di dati passati e l'algoritmo implementato la parallelizzazione non presenta una soluzione ottimale da un punto di vista prestazionale questo perché con l'aumentare dei processori ci troviamo ad aumentare la probabilità degli scambi e quindi di conseguenza aumenta la possibilità che a ogni iterazione una cella che era soddisfatta diventi insoddisfatta.
 
