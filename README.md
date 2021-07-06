@@ -78,7 +78,7 @@ Alla fine di queste operazioni ogni processore sarà in grado di generarsi la pr
 
 ## 2 Scambio delle celle per il calcolo degli insodisfatti
 
-Lo scopo dell'algoritmo è quello di controllare se ogni cella è soddisfatta. Analizzando le casistiche possibili ci si rende conto che in alcuni casi siamo costretti a chiedere ai nostri vicini (cioè myrank-1 e/o myrank+1) di dirci chi sono. Per fare queste richieste sono state usate delle **MPI_Send** e **MPI_Recv** non bloccati
+Lo scopo dell'algoritmo è quello di controllare se ogni cella è soddisfatta. Analizzando le casistiche possibili ci si rende conto che in alcuni casi siamo costretti a chiedere ai nostri vicini (cioè myrank-1 e/o myrank+1) di dirci chi sono. Per fare queste richieste sono state usate delle **MPI_Send** e **MPI_Recv** non bloccanti
 
 ```
 
