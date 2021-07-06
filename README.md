@@ -76,7 +76,7 @@ che poi successivamente è stato inviato ad ognuno di loro attraverso una
 
 Alla fine di queste operazioni ogni processore sarà in grado di generarsi la propria matrice e di stamparla per vedere la situazione di partenza.
 
-## 2 Scambio delle celle per il calcolo degli insodisfatti
+## 2 Scambio delle celle per il calcolo degli insoddisfatti
 
 Lo scopo dell'algoritmo è quello di controllare se ogni cella è soddisfatta. Analizzando le casistiche possibili ci si rende conto che in alcuni casi siamo costretti a chiedere ai nostri vicini (cioè myrank-1 e/o myrank+1) di dirci chi sono. Per fare queste richieste sono state usate delle **MPI_Send** e **MPI_Recv** non bloccanti
 
@@ -114,9 +114,9 @@ perchè nel caso in cui non riceviamo queste informazioni non siamo in grado di 
 
 ```
 
-## 3 Calcolo degli insodisfatti
+## 3 Calcolo degli insoddisfatti
 
-Arrivati a questo punto si hanno a disposizione tutti i dati che occorrono per il calcolo degli insodisfatti.
+Arrivati a questo punto si hanno a disposizione tutti i dati che occorrono per il calcolo degli insoddisfatti.
 La prima problematica affrontata è stata come memorizzare la posizione delle celle indodisfatte; per fare questo è stata creata una **struttura** formata dalle coordinate x ed y
 
 ```
@@ -124,21 +124,21 @@ typedef struct
 {
     int x;
     int y;
-} insodisfatti;
+} insoddisfatti;
 ```
 
 che poi è stata utilizzata per dichiarare 2 array ognuno relativo ad un agente;
 
 ```
-array_ins_x = (insodisfatti *)malloc(info_generali.my_age_x * sizeof(insodisfatti));
-array_ins_y = (insodisfatti *)malloc(info_generali.my_age_y * sizeof(insodisfatti));
+array_ins_x = (insoddisfatti *)malloc(info_generali.my_age_x * sizeof(insoddisfatti));
+array_ins_y = (insoddisfatti *)malloc(info_generali.my_age_y * sizeof(insoddisfatti));
 
 ```
 
 Tutta la logica del calcolo è stata demandata alla funzione
 
 ```
-    calcolo_insodisfatti(mymat, common_size, &risposta_x.celle_libere, &risposta_x.qnt_ins, &risposta_y.qnt_ins, info_generali, array_ins_x, array_ins_y, primariga, ultimariga, myrank);
+    calcolo_insoddisfatti(mymat, common_size, &risposta_x.celle_libere, &risposta_x.qnt_ins, &risposta_y.qnt_ins, info_generali, array_ins_x, array_ins_y, primariga, ultimariga, myrank);
 
 
 ```
@@ -196,7 +196,7 @@ if (agente == 1)
     }
 ```
 
-## 4. Scambio e riallocazione degli insodisfatti
+## 4. Scambio e riallocazione degli insoddisfatti
 
 Una volta aver controllato tutte le celle, la fase successiva e finale è stata quella di effettuare lo scambio.Innanzitutto questa fase è stata gestita dal master, il quale riceve dagli slave il numero di insoddisfati e li salva all'interno di un array
 
@@ -215,7 +215,7 @@ typedef struct
 } richiesta;
 ```
 
-che ha permesso anche di tenere traccia di quante celle libere un processore aveva a disposizione e quante insodisfatti aveva, tutti questi valori sono raccolti nella fase del calcolo insoddisfatti.
+che ha permesso anche di tenere traccia di quante celle libere un processore aveva a disposizione e quante insoddisfatti aveva, tutti questi valori sono raccolti nella fase del calcolo insoddisfatti.
 Grazie ai precedenti valori il master è in grado di capire se c'è ancora qualche insoddisfatto e in tal caso far effettuare un altro ciclo altrimenti fa terminare il programma.
 Nel caso in cui si abbiano ancora degli insoddisfatti la fase successiva è quella di effettuare lo scambio tra processori.
 Lo scambio è gestito da una funzione che lavora prima per l'agente 1 e poi con l'agente 0.
