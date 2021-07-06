@@ -270,10 +270,10 @@ Il programma ciclerà fin quando tutti gli agenti non sono soddisfatti.
 # Esecuzione e parametri
 Per eseguire il programma occorre prima creare l'eseguibile eseguendo il seguente comando
 
-**mpicc Schelling-s-model-of-segregatiom.c -o Schelling-s-model-of-segregatiom**
+**mpicc schelling_model.c -o schelling_model**
 
 Per poi lanciarlo con il seguente comando e scrivere in input i dati richiesti dal programma
-**mpirun -np 2 ./Schelling-s-model-of-segregatiom**
+**mpirun -np 2 ./schelling_model**
 
 Per i test di **scalabilità forte** sono stati scelti i seguenti input:
 Matrice 40*40, agenti x=580 y=540 sod=60
