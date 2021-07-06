@@ -13,7 +13,7 @@ Per arrivare alla soluzione proposta del problema sono stati affrontati i seguen
 
 ## 1. Validazione e creazione della matrice
 
-Il primo problema affrontato è stato quello di validare inseriti dall'utente,come ad esempio la dimesione della matrice. 
+Il primo problema affrontato è stato quello di validare i dati inseriti dall'utente,come ad esempio la dimesione della matrice. 
 Da questo punto di vista il primo controllo effettuato si basa sulla divisione della matrice per il numero di processori in modo tale che da evitare che qualche processore non avesse righe a disposizione.
 Il secondo controllo effettuato invece è stato quello relativo agli agenti e alla quantità di spazio libero da lasciare nella matrice, in modo da eseguire con corretta gli spostamenti tra sottomatrici.
 All'inizio la quantità di celle libere era calcolata come segue
