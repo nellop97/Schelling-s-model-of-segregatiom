@@ -273,6 +273,7 @@ Per eseguire il programma occorre prima creare l'eseguibile eseguendo il seguent
 **mpicc schelling_model.c -o schelling_model**
 
 Per poi lanciarlo con il seguente comando e scrivere in input i dati richiesti dal programma
+
 **mpirun -np 2 ./schelling_model**
 
 Per i test di **scalabilità forte** sono stati scelti i seguenti input:
